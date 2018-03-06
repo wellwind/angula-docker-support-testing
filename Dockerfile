@@ -1,8 +1,5 @@
-FROM node:8.9-alpine as node-angular-cli
+FROM node:8.9-alpine
 
-LABEL authors="John Papa"
-
-#Linux setup
 RUN apk update \
   && apk add --update alpine-sdk \
   && apk del alpine-sdk \
@@ -10,5 +7,10 @@ RUN apk update \
   && npm cache verify \
   && sed -i -e "s/bin\/ash/bin\/sh/" /etc/passwd
 
-#Angular CLI
-RUN npm install -g @angular/cli@1.7.2
+RUN apk add --update --no-cache \
+  udev \
+  ttf-freefont \
+  chromium-chromedriver \
+  chromium
+
+
